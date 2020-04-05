@@ -1,6 +1,7 @@
 /**
  * @author Ingebor Rubio 19003
- *
+ * @date 05/04/2020
+ * Hoja de trabajo 8, estructura de datos
  */
 
 import java.io.BufferedReader;
@@ -13,9 +14,10 @@ public class Main {
 	/**
 	 * @param args
 	 */
-	@SuppressWarnings("unchecked")
+	//@SuppressWarnings({ "resource" })
 	public static void main(String[] args) throws Exception {
 		PriorityQueue<String> priority = new PriorityQueue<String>();
+		VectorHeap<Patient> vector = new VectorHeap<Patient>();
 		// TODO Auto-generated method stub
 		System.out.println("------------------");
 		System.out.println("|   Bienvenido   |");
@@ -36,6 +38,7 @@ public class Main {
 				String patient = prior+", "+name+", "+illness;
 				System.out.println(patient);
 				priority.add(patient);
+				vector.add(new Patient(name,illness,prior));
 			}
 			
 			System.out.println("\n¿Cual implementacion desea utilizar?\n1. JCF\n2. VectorHeap");
@@ -64,7 +67,7 @@ public class Main {
 								flag=false;
 							}
 							else {
-								System.out.println("Ha sido ingresada una opcion no válida");
+								System.out.println("Ha sido ingresada una opcion no valida");
 							}
 						}
 						catch (Exception a) {
@@ -74,16 +77,44 @@ public class Main {
 					}
 				}
 				else if (firstOp==2) {
-					System.out.println("Segunda opcion");
+					boolean flag = true;
+					while(flag) {
+						try {
+							System.out.println("\n¿Que desea realizar?\n1. Ver pacientes en lista\n2. Ver paciente siguiente\n3. Salir");
+							int secondOp = read.nextInt();
+							if(secondOp==1) {
+								System.out.println("\n----------------------------------------------------");
+								System.out.println(vector.listOfPatients());
+								System.out.println("----------------------------------------------------\n");
+							}
+							else if (secondOp==2) {
+								System.out.println("\n------------------------------------------------------------------------");
+								System.out.println("El siguiente paciente es: "+ vector.remove());
+								System.out.println("------------------------------------------------------------------------\n");
+							}
+							else if(secondOp ==3) {
+								flag= false;
+							}
+							else {
+								System.out.println("Ha sido ingresada una opcion no valida");
+							}
+						}
+						catch(Exception e) {
+							System.out.println("No ha sido ingresada una opcion correcta");
+							flag = false;
+						}
+					}
 				}
 				else {
-					System.out.println("No ha sido ingresada una opción correcta");
+					System.out.println("No ha sido ingresada una opcion correcta");
 				}
 				
 			}
 			catch(Exception E) {
-				System.out.println("No ha sido ingresada una opción válida");
+				System.out.println("No ha sido ingresada una opcion valida");
 			}
+			buffRea.close();
+			read.close();
 		}
 		else {
 			System.out.println("No hay datos en el archivo");
